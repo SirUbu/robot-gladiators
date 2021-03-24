@@ -23,7 +23,7 @@ var fight = function(enemyName) {
         var promptFight = prompt("Would you like to FIGHT or SKIP this battle? \nEnter 'FIGHT' to fight. \nEnter 'SKIP' to skip.");
         
         // if skip, cost player and end round
-        if (promptFight === "skip" || promptFight === "SKIP") {
+        if (promptFight.toLowerCase() === "skip") {
             // confirm player wants to skip
             var confirmSkip = confirm("You will be penalized for skipping. \nAre you sure you want to skip?");
 
@@ -91,6 +91,17 @@ var startGame = function() {
 
             // pass currentEnemyName value into fight function
             fight(currentEnemyName);
+
+            // if player is still alive and there is still an enemy to face
+            if (playerHealth > 0 && i < enemyNames.length - 1) {
+                // ask if player wants to use the store before next round
+                var storeConfirm = confirm("The round has ended. \nWould you like to visit the shop before the next round?");
+
+                // if yes, enter shop
+                if (storeConfirm) {
+                    shop();
+                }
+            }
         } else {
             alert("You have lost your robot in battle! Game Over!");
             break;
@@ -120,5 +131,45 @@ var endGame = function() {
         alert("Thank you for playing Robot Gladiators! Come back soon!")
     }
 }
+
+var shop = function() {
+    // aks player what they'd like to do
+    var shopOptionPromp = prompt(`Your score is ${playerScore}. \nWould you like to: \nREFILL your health (-7 to score) \nUPGRADE your attack (-5 to score)\n LEAVE the shop \nEnter REFILL, UPGRADE or LEAVE`);
+
+    // use switch to carry out action
+    switch (shopOptionPromp.toLowerCase()) {
+        case "refill":
+            if (playerScore >= 7) {
+                // increase health and decrease score
+                playerHealth = playerHealth + 20;
+                playerScore = playerScore - 7;
+
+                alert(`Refilling ${playerName}'s health by 20. This cost you 7 points. \n${playerName}'s health is now ${playerHealth}. \nYour score is now ${playerScore}.`);
+            } else {
+                alert("Your score isn't high enough to purchase this.")
+            }
+
+            break;
+        case "upgrade":
+            if (playerScore > 5) {
+                // increase attack and decrease money
+                playerAttack = playerAttack + 6;
+                playerScore = playerScore - 5;
+
+                alert(`Upgrading ${playerName}'s attack by 6. This cost you 5 points. \n${playerName}'s attack is now ${playerAttack}. \nYour score is no ${playerScore}.`);
+            } else {
+                alert("Your score isn't high enough to purchase this.")
+            }
+
+            break;
+        case "leave":
+            alert("Leaving the store.");
+            break;
+        default:
+            alert("You did not pick a valid option. Try again.")
+            shop();
+            break;
+    }
+};
 
 startGame();
