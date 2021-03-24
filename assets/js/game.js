@@ -134,7 +134,7 @@ var endGame = function() {
 
 var shop = function() {
     // aks player what they'd like to do
-    var shopOptionPromp = prompt(`Your score is ${playerScore}. \nWould you like to: \nREFILL your health (-7 to score) \nUPGRADE your attack (-5 to score)\n LEAVE the shop \nEnter REFILL, UPGRADE or LEAVE`);
+    var shopOptionPromp = prompt(`Your score is ${playerScore}. \nWould you like to: \nREFILL your health (-7 to score) \nUPGRADE your attack (-5 to score)\nLEAVE the shop \nEnter 'REFILL', 'UPGRADE' or 'LEAVE'`);
 
     // use switch to carry out action
     switch (shopOptionPromp.toLowerCase()) {
@@ -145,20 +145,24 @@ var shop = function() {
                 playerScore = playerScore - 7;
 
                 alert(`Refilling ${playerName}'s health by 20. This cost you 7 points. \n${playerName}'s health is now ${playerHealth}. \nYour score is now ${playerScore}.`);
+                shop();
             } else {
                 alert("Your score isn't high enough to purchase this.")
+                shop();
             }
 
             break;
         case "upgrade":
-            if (playerScore > 5) {
+            if (playerScore >= 5) {
                 // increase attack and decrease money
                 playerAttack = playerAttack + 6;
                 playerScore = playerScore - 5;
 
                 alert(`Upgrading ${playerName}'s attack by 6. This cost you 5 points. \n${playerName}'s attack is now ${playerAttack}. \nYour score is no ${playerScore}.`);
+                shop();
             } else {
                 alert("Your score isn't high enough to purchase this.")
+                shop();
             }
 
             break;
