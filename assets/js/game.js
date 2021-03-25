@@ -11,9 +11,22 @@ var randomNumber = function(min, max) {
     return value;
 }
 
+// function to set player robot name
+var getPlayerName = function () {
+    var name = prompt("Welcome to Robot Gladiators! \nWhat is your robot's name?");
+
+    // ensure player robot name is a valid entry
+    while (!name) {
+        name = prompt("Please enter a valid name for your robot.");
+    }
+
+    console.log(`Your robot's name is ${name}`);
+    return name;
+}
+
 // get player robot name set player stats
 var playerInfo = {
-    name: prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 12,
     score: 10,
@@ -125,7 +138,7 @@ var startGame = function() {
     for (var i = 0; i < enemyInfo.length; i++) {
         if (playerInfo.health > 0) {
             // alert player to round 
-            alert(`Welcome to Robot Gladiators! \nRound ${(i + 1)}`);
+            alert(`${playerInfo.name} vs ${enemyInfo[i].name} \nRound ${(i + 1)} \nFIGHT!`);
         
             // pick new enemy based on index of enemyInfo
             var currentEnemyObj = enemyInfo[i];
