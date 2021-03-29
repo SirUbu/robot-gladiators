@@ -212,17 +212,17 @@ var endGame = function() {
 
 var shop = function() {
     // aks player what they'd like to do
-    var shopOptionPromp = prompt(`Your score is ${playerInfo.score}. \nWould you like to: \nREFILL your health (-7 to score) \nUPGRADE your attack (-7 to score)\nLEAVE the shop \nEnter 'REFILL', 'UPGRADE' or 'LEAVE'`);
+    var shopOptionPromp = prompt(`Your score is ${playerInfo.score}. \nEnter 1 to REFILL your health (-7 to score) \nEnter 2 to UPGRADE your attack (-7 to score)\nEnter 3 to LEAVE the shop \nEnter 1, 2, or 3.`);
 
     // use switch to carry out action
-    switch (shopOptionPromp.toLowerCase()) {
-        case "refill":
+    switch (parseInt(shopOptionPromp)) {
+        case 1:
             playerInfo.refillHealth();
             break;
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
-        case "leave":
+        case 3:
             alert("Leaving the store.");
             break;
         default:
