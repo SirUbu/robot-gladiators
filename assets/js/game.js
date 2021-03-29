@@ -30,7 +30,7 @@ var playerInfo = {
     score: 10,
     reset: function () {
         this.health = 100;
-        this.attack = 12;
+        this.attack = 15;
         this.score = 10;
     },
     refillHealth: function() {
