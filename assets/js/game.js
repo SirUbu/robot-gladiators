@@ -19,8 +19,6 @@ var getPlayerName = function () {
     while (!name) {
         name = prompt("Please enter a valid name for your robot.");
     }
-
-    console.log(`Your robot's name is ${name}`);
     return name;
 }
 
@@ -130,7 +128,9 @@ var fight = function(enemy) {
 
             // check enemy's health, alert operation
             if (enemy.health <= 0) {
-                alert(`${playerInfo.name} attacked ${enemy.name} and dealt ${damage} damage. \n${enemy.name} now has ${enemy.health} health remaining. \n${enemy.name} had been defeated!`);
+                var roundScore = randomNumber(3, 10);
+                alert(`${playerInfo.name} attacked ${enemy.name} and dealt ${damage} damage. \n${enemy.name} now has ${enemy.health} health remaining. \n${enemy.name} had been defeated! \n${playerInfo.name} gained ${roundScore} points.`);
+                playerInfo.score += roundScore;
                 break;
             } else {
                 alert(`${playerInfo.name} attacked ${enemy.name} and dealt ${damage} damage. \n${enemy.name} now has ${enemy.health} health remaining.`)
@@ -197,10 +197,25 @@ var startGame = function() {
 };
 
 // function to end the game
-var endGame = function() {
+var endGame = function() {    
     // if player is still alive, player wins
     if (playerInfo.health > 0) {
-        alert(`Great job, you've survived the game! You have a score of ${playerInfo.score}.`);
+        alert(`Great job, you've survived the game! Let's see how your did...`);
+
+        // check localStorage for high score, if it's not there, use 0
+        var highScore = localStorage.getItem("highscore");
+        if (!highScore) {
+            highScore = 0;
+        }
+        // if player has higher score, assign as new high score
+        if(playerInfo.score > highScore) {
+            localStorage.setItem("highscore", playerInfo.score);
+            localStorage.setItem("name", playerInfo.name);
+
+            alert(`${playerInfo.name} now has the high score of ${playerInfo.score}!`);
+        } else {
+            alert(`${playerInfo.name} did not beat the high score of ${highScore}. Maybe next time!`);
+        }
     } else {
         alert(`You've lost your robot in battle.`)
     }
